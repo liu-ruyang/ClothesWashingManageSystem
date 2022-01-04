@@ -1,0 +1,2 @@
+# ClothesWashingManageSystem
+基于SpringBoot的管理系统
