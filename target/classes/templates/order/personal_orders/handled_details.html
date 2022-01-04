@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="~{commons/commons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/commons::sidebar(active='list.html',identity='vipmember')}"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <a class="btn btn-sm btn-primary" th:href="@{/personalOrder}">返回</a>
+
+            <!--写一个controller（getById）获取订单-->
+            <form class="form-horizontal" th:action="@{/user/order/handled}" method="post">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">订单编号</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="id" th:value="${handled_orders.get(0).getId()}"
+                               readonly="readonly"
+                               required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">衣服描述</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="description" th:value="${handled_orders.get(0).getDescription()}"
+                               required readonly="readonly">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">数量</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" th:value="${handled_orders.get(0).getCount()}" name="count"
+                               readonly="readonly" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">下单日期</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" th:value="${handled_orders.get(0).getOrderDate()}" name="orderDate"
+                               readonly="readonly" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">完成日期</label>
+                    <div class="col-sm-10">
+                        <input class="form-control" th:value="${handled_orders.get(0).getFinishedDate()}" name="finishedDate"
+                               readonly="readonly" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">状态</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"
+                               th:value="${handled_orders.get(0).getStatus().equals('1')?'待洗':(handled_orders.get(0).getStatus().equals('2')?'进行中':'已洗')}"
+                               name="status" readonly="readonly" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">是否取走</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" th:value="${handled_orders.get(0).getTaken().equals('1')?'已取走':'未取'}"
+                               name="taken" readonly="readonly" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">衣服种类</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control"
+                               th:value="${handled_orders.get(0).getClothesTypes().get(0).getTypeValue()}"
+                               name="clothesType" readonly="readonly"
+                               required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">会员名字</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" th:value="${handled_orders.get(0).getVipMembers().get(0).getName()}"
+                               name="name" readonly="readonly"
+                               required>
+                    </div>
+                </div>
+                <!--                <div class="form-group">-->
+                <!--                    <div class="col-sm-offset-2 col-sm-10">-->
+                <!--                        <button class="btn btn-sm btn-success" type="submit" name="alter">修改订单</button>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </form>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>

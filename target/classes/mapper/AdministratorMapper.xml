@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wash.wash_cloth_store.mapper.AdministratorMapper">
+
+    <!--查看管理员是否存在-->
+    <select id="ifExist" resultType="administrator">
+        select *
+        from administrator
+        where username = #{username}
+          and password = #{password}
+    </select>
+
+    <!--查询所有会员-->
+    <select id="queryAll" resultType="vIPMember">
+        select *
+        from vip_member
+    </select>
+
+    <!--删除单个用户信息-->
+    <delete id="deleteMember" parameterType="int">
+        delete
+        from vip_member
+        where id = #{id}
+    </delete>
+
+    <!--添加用户-->
+    <insert id="addMember" parameterType="vIPMember">
+        insert into vip_member
+            (username, password, name, age, balance, phone, address)
+            value (#{username},#{password},#{name},#{age},#{balance},#{phone},#{address})
+    </insert>
+
+    <!--根据id查询会员-->
+    <select id="queryMember" resultType="vIPmember">
+        select *
+        from vip_member
+        where id = #{id}
+    </select>
+
+    <!--根据id修改对应用户的账户余额-->
+    <update id="updateBalance">
+        update vip_member
+        set balance = #{newBlance}
+        where id = #{id}
+    </update>
+
+    <!--查询所有用户的所有订单-->
+    <select id="getAllUserOrder" resultType="clothesOrder">
+        SELECT clothes_order_handled.*,
+               vip_member.`name`
+        FROM clothes_order_handled,
+             vip_member
+        WHERE clothes_order_handled.vip_member_id = vip_member.id
+        UNION
+        SELECT clothes_order_handling.*,
+               vip_member.`name`
+        FROM clothes_order_handling,
+             vip_member
+        WHERE clothes_order_handling.vip_member_id = vip_member.id
+        UNION
+        SELECT clothes_order_unhandled.*,
+               vip_member.`name`
+        FROM clothes_order_unhandled,
+             vip_member
+        WHERE clothes_order_unhandled.vip_member_id = vip_member.id
+    </select>
+
+    <!--查询所有衣物种类-->
+    <select id="getClothesTypes" resultType="clothesType">
+        SELECT *
+        from clothes_type
+    </select>
+
+    <!--根据日期查询指定的订单-->
+    <select id="getOrderByOrder_date" resultType="clothesOrder">
+        SELECT clothes_order_handled.*,
+               vip_member.`name`
+        FROM clothes_order_handled,
+             vip_member
+        WHERE clothes_order_handled.vip_member_id = vip_member.id
+          and clothes_order_handled.order_date = #{orderdate}
+        union
+        SELECT clothes_order_handling.*,
+               vip_member.`name`
+        FROM clothes_order_handling,
+             vip_member
+        WHERE clothes_order_handling.vip_member_id = vip_member.id
+          and clothes_order_handling.order_date = #{orderdate}
+        union
+        SELECT clothes_order_unhandled.*,
+               vip_member.`name`
+        FROM clothes_order_unhandled,
+             vip_member
+        WHERE clothes_order_unhandled.vip_member_id = vip_member.id
+          and clothes_order_unhandled.order_date = #{orderdate}
+    </select>
+
+    <!--删除未洗订单-->
+    <delete id="deleteUnhandledOrder">
+        delete
+        from clothes_order_unhandled
+        where id = #{id}
+    </delete>
+
+    <!--添加进行中订单-->
+    <insert id="addHandlingOrder">
+        insert into clothes_order_handling
+        (description, count, order_date, clothes_type, vip_member_id, status, fee, taken)
+            value (#{description},#{count},#{order_date},#{clothes_type},#{vip_member_id},#{status},#{fee},#{taken})
+    </insert>
+
+    <!--删除进行中订单-->
+    <delete id="deleteHandlingOrder">
+        delete
+        from clothes_order_handling
+        where id = #{id}
+    </delete>
+
+    <!--添加已洗订单-->
+    <insert id="addHandledOrder">
+        insert into clothes_order_handled
+        (description, order_date, count, clothes_type, vip_member_id, status, fee, taken)
+            value (#{description},#{order_date},#{count},#{clothes_type},#{vip_member_id},#{status},#{fee},#{taken})
+    </insert>
+</mapper>

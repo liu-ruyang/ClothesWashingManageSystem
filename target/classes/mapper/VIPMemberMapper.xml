@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wash.wash_cloth_store.mapper.VIPMemberMapper">
+
+    <!--判断用户是否存在-->
+    <select id="ifExist" resultType="vIPMember">
+        select *
+        from vip_member
+        where username = #{username}
+          and password = #{password}
+    </select>
+
+    <!--用户查看个人信息-->
+    <select id="queryPersonalInfo" resultType="vIPMember">
+        select *
+        from vip_member
+        where id = #{id}
+    </select>
+
+    <!--根据id查询个人所有的已经处理的订单-->
+    <select id="getAllUnTakenOrders" resultType="clothesOrder">
+        select *
+        from clothes_order_handled
+        where vip_member_id = #{id}
+          and taken = 0
+    </select>
+
+    <!--修改个人信息-->
+    <update id="updateVIPMember">
+        update vip_member
+        set username = #{vipmember.username},
+            name=#{vipmember.name},
+            age=#{vipmember.age},
+            balance=#{vipmember.balance},
+            phone=#{vipmember.phone},
+            address=#{vipmember.address}
+        where id = #{id}
+    </update>
+
+    <!--取走个人衣物-->
+    <update id="takeAwayClothes">
+        update clothes_order_handled
+        set taken = 1
+        where order_date = #{order_date}
+    </update>
+
+    <!--修改个人密码-->
+    <update id="updatePassword">
+        update vip_member
+        set password = #{newPassword}
+        where username = #{username}
+          and password = #{oldPassword}
+    </update>
+
+    <select id="getById" resultType="vIPMember">
+        select v.id, v.name, v.age, v.balance, v.phone, v.address
+        from vip_member v
+        where v.id = #{id}
+    </select>
+
+    <update id="updateVIPMemberById" parameterType="vIPMember">
+        update vip_member v
+        set v.name=#{name},
+            v.age = #{age},
+            v.phone = #{phone},
+            v.address = #{address}
+        where v.id = #{id}
+    </update>
+
+
+</mapper>

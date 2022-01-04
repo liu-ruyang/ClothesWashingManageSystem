@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .hidden {
+        display: none;
+    }
+
+</style>
+<body style="background-color: #dae0e5">
+
+<div>
+    <form action="/loginin_in"
+          style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;position: absolute;margin:auto;top: 0;left: 0;right: 0;bottom: 0;
+          width: 500px;height: 300px;background-color:#e2f2f2;">
+        <h1 align="center">登&nbsp;&nbsp;&nbsp;录</h1>
+
+        <div align="center">
+            <input id="identity" type="checkbox" name="identity" value="administrator"><label for="identity">以管理员身份登录</label>
+        </div>
+        <div align="center">
+            <table style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;border-top-right-radius: 10px;
+          border-bottom-right-radius: 10px;">
+                <tr>
+                    <td>
+                        <input style="width: 200px;height:20px;" type="text" name="username" placeholder="用户名">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input style="width: 200px;height:20px;" type="password" name="password" placeholder="密码">
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <br>
+        <!--<div><span th:text="${error}" style="color: #bd2130"></span></div>-->
+        <!--<div align="center">-->
+        <!--<input  style="height:22px;" type="text"  name="username" placeholder="用户名">-->
+        <!--</div>-->
+        <!--<br>-->
+        <!--<div align="center">-->
+        <!--<input  style="height:22px;" type="password" name="password" placeholder="密码">-->
+        <!--</div>-->
+        <div align="center">
+            <span class="tomodify" style="display: block;"><font color="#808080">修改密码</font></span>
+        </div>
+        <br>
+        <div align="center">
+            <input style="width: 100px;height:35px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;border-top-right-radius: 5px; border-bottom-right-radius: 5px;"
+                   type="submit" value="登录">
+        </div>
+        <p id="time" align="center"></p>
+    </form>
+
+    <!--修改密码弹窗-->
+    <div class="modify_info hidden" style="width: 500px;height: 300px;background-color:#e2f2f2;box-sizing: content-box;
+    position:absolute; top:50%; left:50%; transform: translate(-50%,-50%);border-top-left-radius: 10px;border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+        <br>
+        <button class="return" style="float: left">返回</button>
+        <div align="center" style="align-content:center;width:350px;height: 200px; background-color:#e2f2f2;margin:auto; position: absolute;
+         top:50%;left:50%;margin-top: -100px;margin-left: -175px">
+            <h2 align="center">修&nbsp;改&nbsp;密&nbsp;码</h2>
+
+            <form th:action="@{/updatePassword}" style="align-content:center;margin:auto">
+                <div align="center"><input class="username_modify" name="username_modify" type="text" placeholder="用户名"></div>
+                <div align="center"><input class="password_modify_old" name="password_modify_old" type="password" placeholder="原密码">
+                </div>
+                <div align="center"><input class="password_modify_new" name="password_modify_new" type="password" placeholder="新密码">
+                </div>
+                <div align="center"><input class="password_modify_new_confirm" name="password_modify_new_confirm" type="password"
+                                           placeholder="确认密码">
+                </div>
+                <br>
+                <input style="height:35px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;border-top-right-radius: 5px; border-bottom-right-radius: 5px;"
+                       type="submit" value="确认修改">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let date = new Date();
+    let fullYear = date.getFullYear();
+    let month = date.getMonth();
+    let day = date.getDay();
+    let time = fullYear + "-" + month + "-" + day;
+    document.getElementById("time").innerText = time;
+
+    document.getElementsByClassName("return")[0].addEventListener("click", function () {
+        //隐藏标签
+        console.log("点击返回按钮")
+        document.getElementsByClassName("modify_info")[0].style.display = "none";
+        // document.getElementsByClassName("modify_info")[0].classList.add("hidden")
+    }, false)
+
+    document.getElementsByClassName("tomodify")[0].addEventListener("click", function () {
+        //显示隐藏的标签
+        console.log("点击修改")
+        document.getElementsByClassName("modify_info")[0].style.display = "block    ";
+        // document.getElementsByClassName("tomodify")[0].classList.remove("hidden")
+    })
+
+    document.getElementsByClassName("password_modify_new_confirm")[0].addEventListener("onblur", function () {
+        let a = de
+    })
+</script>
+
+</body>
+</html>

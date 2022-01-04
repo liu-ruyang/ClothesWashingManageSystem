@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/asserts/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+    <style type="text/css">
+        /* Chart.js */
+
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="~{commons/commons::topbar}"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div th:replace="~{commons/commons::sidebar(active='about.html',identity=${session.identity})}"></div>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+            <div class="form-group" bgcolor="grey">
+                <h1 align="left">联系我们</h1>
+            </div>
+            <div class="form-group" bgcolor="#f0ffff">
+                <label class="col-sm-2 control-label">公司地址： 南京市浦口区盘城街道宁六路219号南京信息工程大学</label>
+            </div>
+            <div class="form-group" bgcolor="#f0ffff">
+                <label class="col-sm-2 control-label">邮编： 210044</label>
+            </div>
+            <div class="form-group" bgcolor="#f0ffff">
+                <label class="col-sm-2 control-label">联系电话： 88888888</label>
+            </div>
+            <br>
+            <hr width="100%" size="2" align="center" dashed>
+            <br>
+            <table border="1px" width="100%" align="center" cellpadding="0px" cellspacing="0px">
+
+
+                <tr>
+                    <td>
+                        <table border="1px" width="100%">
+                            <tr height="50px">
+                                <td colspan="7" bgcolor="#f0ffff">
+                                    <h1 align="center">旗 下 产 品</h1>&nbsp; &nbsp; &nbsp; &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" width="190px" height="500px">
+                                    <img width="190px" height="500px" th:src="@{/asserts/img/left.jpg}"/>
+                                </td>
+
+                                <td colspan="3" width="555px" height="250px">
+                                    <a href="#"><img width="555px" height="250px" th:src="@{/asserts/img/store.jpg}"/></a>
+                                </td>
+
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/solid.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">洗衣液</font></a><br/><br/>
+                                    <font color="red">特价：99</font>
+                                </td>
+
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/solid2.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">干洗浓缩液</font></a><br/><br/>
+                                    <font color="red">特价：139</font>
+                                </td>
+
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/solid3.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">柔顺剂</font></a><br/><br/>
+                                    <font color="red">特价：79</font>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px"
+                                                     th:src="@{/asserts/img/machine.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">滚筒洗衣机</font></a><br/><br/>
+                                    <font color="red">1800</font>
+                                </td>
+
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/white.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">衣物漂白剂</font></a><br/><br/>
+                                    <font color="red">30</font>
+                                </td>
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/circle.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">洗衣凝珠</font></a><br/><br/>
+                                    <font color="red">99</font>
+                                </td>
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/soap.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">洗衣皂</font></a><br/><br/>
+                                    <font color="red">30</font>
+                                </td>
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/bag.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">洗衣袋</font></a><br/><br/>
+                                    <font color="red">15</font>
+                                </td>
+                                <td width="185px" height="250px" align="center">
+                                    <a href="#"><img width="185px" height="250px" th:src="@{/asserts/img/wood.jpg}"/></a><br/>
+                                    <a href="#"><font color="gray">无痕衣架</font></a><br/><br/>
+                                    <font color="red">10</font>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+            </table>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js"></script>
+<script type="text/javascript" src="asserts/js/popper.min.js"></script>
+<script type="text/javascript" src="asserts/js/bootstrap.min.js"></script>
+
+<!-- Icons -->
+<script type="text/javascript" src="asserts/js/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<!-- Graphs -->
+<script type="text/javascript" src="asserts/js/Chart.min.js"></script>
+<script>
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            datasets: [{
+                data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
+                lineTension: 0,
+                backgroundColor: 'transparent',
+                borderColor: '#007bff',
+                borderWidth: 4,
+                pointBackgroundColor: '#007bff'
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            },
+            legend: {
+                display: false,
+            }
+        }
+    });
+</script>
+
+</body>
+
+</html>

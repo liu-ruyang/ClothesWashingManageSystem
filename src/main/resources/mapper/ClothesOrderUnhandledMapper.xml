@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wash.wash_cloth_store.mapper.ClothesOrderUnhandledMapper">
+
+    <resultMap id="AllMap" type="ClothesOrderUnhandled">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="count" column="count" jdbcType="VARCHAR"/>
+        <result property="orderDate" column="order_date" jdbcType="TIMESTAMP"/>
+        <result property="finishedDate" column="finished_date" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="fee" column="fee" jdbcType="DOUBLE"/>
+        <result property="taken" column="taken" jdbcType="INTEGER"/>
+        <collection property="clothesTypes" ofType="ClothesType" javaType="java.util.List">
+            <result property="typeValue" column="type_value"/>
+        </collection>
+        <collection property="vipMembers" ofType="VIPMember" javaType="java.util.List">
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+
+    <select id="getAll" resultMap="AllMap">
+        select u.id,
+               u.description,
+               u.fee,
+               u.count,
+               t.type_value,
+               v.name,
+               u.order_date,
+               u.finished_date,
+               u.status,
+               u.taken
+        from clothes_order_unhandled u
+                 left join vip_member v on v.id = u.vip_member_id
+                 left join clothes_type t on t.id = u.clothes_type
+        where u.vip_member_id = #{vip_member_id}
+    </select>
+
+    <select id="getByClothesType" resultMap="AllMap">
+        select u.id,
+               u.description,
+               u.count,
+               t.type_value,
+               u.fee,
+               v.name,
+               u.order_date,
+               u.finished_date,
+               u.status,
+               u.taken
+        from clothes_order_unhandled u
+                 left join vip_member v on v.id = u.vip_member_id
+                 left join clothes_type t on t.id = u.clothes_type
+        where u.clothes_type = #{clothesType}
+          and u.vip_member_id = #{vip_member_id}
+    </select>
+
+    <select id="getByOrderDate" resultMap="AllMap">
+        select u.id,
+               u.description,
+               u.count,
+               u.fee,
+               t.type_value,
+               v.name,
+               u.order_date,
+               u.finished_date,
+               u.status,
+               u.taken
+        from clothes_order_unhandled u
+                 left join vip_member v on v.id = u.vip_member_id
+                 left join clothes_type t on t.id = u.clothes_type
+        where u.order_date = #{orderDate}
+          and u.vip_member_id = #{vip_member_id}
+    </select>
+
+    <insert id="insert" parameterType="ClothesOrderUnhandled">
+        insert into clothes_order_unhandled (description, count, clothes_type, vip_member_id)
+        VALUES (#{description}, #{count}, #{clothesType}, #{vipMemberId})
+    </insert>
+
+    <update id="updateDescriptionById" parameterType="ClothesOrderUnhandled">
+        update clothes_order_unhandled
+        set description = #{description}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from clothes_order_unhandled
+        where id = #{id}
+    </delete>
+
+    <select id="getById" resultMap="AllMap">
+        select u.id,
+               u.description,
+               u.count,
+               t.type_value,
+               v.name,
+               u.order_date,
+               u.finished_date,
+               u.status,
+               u.taken
+        from clothes_order_unhandled u
+                 left join vip_member v on v.id = u.vip_member_id
+                 left join clothes_type t on t.id = u.clothes_type
+        where u.id = #{id}
+    </select>
+
+</mapper>

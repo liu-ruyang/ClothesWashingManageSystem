@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: sa
+    password: 123123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/clothes_order
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wash.wash_cloth_store.entity
+
